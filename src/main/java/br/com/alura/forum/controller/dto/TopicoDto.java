@@ -6,18 +6,26 @@ import java.util.stream.Collectors;
 
 import br.com.alura.forum.modelo.Topico;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 public class TopicoDto {
 
 	private Long id;
+
+	@NotEmpty(message="Titulo não pode estar vazio")@Min(5)
 	private String titulo;
+
+	@NotEmpty(message="Mensagem não pode estar vazia")@Min(10)
 	private String mensagem;
-	private LocalDateTime dataCriacao;
+
+	private final LocalDateTime dataCriacao;
 	
 	public TopicoDto(Topico topico) {
 		this.id = topico.getId();
 		this.titulo = topico.getTitulo();
 		this.mensagem = topico.getMensagem();
-		this.dataCriacao = topico.getDataCriacao();
+		this.dataCriacao = LocalDateTime.now();
 	}
 
 	public Long getId() {
