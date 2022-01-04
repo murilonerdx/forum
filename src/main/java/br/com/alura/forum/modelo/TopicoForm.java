@@ -1,5 +1,6 @@
 package br.com.alura.forum.modelo;
 
+import br.com.alura.forum.controller.dto.TopicoDto;
 import br.com.alura.forum.repository.CursoRepository;
 
 public class TopicoForm {
