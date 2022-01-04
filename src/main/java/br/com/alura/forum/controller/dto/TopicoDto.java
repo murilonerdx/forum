@@ -8,17 +8,13 @@ import br.com.alura.forum.modelo.Topico;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class TopicoDto {
 
 	private Long id;
-
-	@NotEmpty(message="Titulo não pode estar vazio")@Min(5)
 	private String titulo;
-
-	@NotEmpty(message="Mensagem não pode estar vazia")@Min(10)
 	private String mensagem;
-
 	private final LocalDateTime dataCriacao;
 	
 	public TopicoDto(Topico topico) {

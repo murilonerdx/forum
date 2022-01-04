@@ -3,9 +3,18 @@ package br.com.alura.forum.modelo;
 import br.com.alura.forum.controller.dto.TopicoDto;
 import br.com.alura.forum.repository.CursoRepository;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class TopicoForm {
 
+    @NotNull
+    @NotEmpty(message="Titulo não pode estar vazio")@Min(5)
     private String titulo;
+
+    @NotNull
+    @NotEmpty(message="Mensagem não pode estar vazia")@Min(10)
     private String mensagem;
     private String nomeCurso;
 
