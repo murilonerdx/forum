@@ -9,6 +9,7 @@ import br.com.alura.forum.controller.dto.DetalhesDoTopicoDto;
 import br.com.alura.forum.modelo.TopicoForm;
 import br.com.alura.forum.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +37,7 @@ public class TopicosController {
 
 	@GetMapping()
 	@Cacheable(value="listaDeTopicos")
+	@CacheEvict(value="listaDeTopicos", allEntries = true)
 	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso,
 								 @RequestParam(value="pagina", required = false) int pagina,
 								 @RequestParam(value="qtd", required = false) int qtd, @RequestParam(value="ordenacao", required = false) String ordenacao) {
@@ -49,6 +51,8 @@ public class TopicosController {
 	}
 
 	@PostMapping()
+	@Transactional
+	@CacheEvict(value="listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm topicoForm, UriComponentsBuilder component){
 		Topico topico = topicoForm.converter(cursoRepository);
 		topicoRepository.save(topico);
