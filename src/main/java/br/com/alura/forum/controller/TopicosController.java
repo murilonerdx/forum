@@ -39,8 +39,9 @@ public class TopicosController {
 	@Cacheable(value="listaDeTopicos")
 	@CacheEvict(value="listaDeTopicos", allEntries = true)
 	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso,
-								 @RequestParam(value="pagina", required = false) int pagina,
-								 @RequestParam(value="qtd", required = false) int qtd, @RequestParam(value="ordenacao", required = false) String ordenacao) {
+								 @RequestParam(value="pagina", required = false, defaultValue = "0") int pagina,
+								 @RequestParam(value="qtd", required = false, defaultValue = "5") int qtd, @RequestParam(value="ordenacao", required = false, defaultValue = "id") String ordenacao) {
+
 		if (nomeCurso == null) {
 			Page<Topico> topicos = topicoRepository.findAll(PageRequest.of(pagina, qtd, Sort.Direction.ASC, ordenacao));
 			return TopicoDto.converter(topicos);
