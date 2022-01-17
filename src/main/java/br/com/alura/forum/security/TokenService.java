@@ -26,10 +26,21 @@ public class TokenService {
 
         return Jwts.builder()
                 .setIssuer("API do Forum")
-                .setSubject(sub.getEmail())
+                .setSubject(String.valueOf(sub.getId()))
                 .setIssuer(String.valueOf(dtInitialCreate))
                 .setExpiration(expirationFinalCreate)
                 .signWith(SignatureAlgorithm.ES256, secret)
                 .compact();
+    }
+
+    public boolean isTokenValid(String token) {
+        try{
+            Jwts.parser().setSigningKey(secret)
+                    .parseClaimsJws(token);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+
     }
 }
